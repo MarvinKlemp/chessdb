@@ -8,6 +8,7 @@ webserver:
   app: false
   mysql: false
   tools: true
+  blackfire: true
   php_ini:
     - "error_reporting=E_ALL|E_STRICT"
     - "display_errors=On"

@@ -2,3 +2,11 @@ insight:
   user_uuid: <your insight uuid here>
   api_token: <your insight token here>
   api_endpoint: "https://insight.sensiolabs.com"
+
+blackfire:
+  agent:
+    server-id: <your blackfire agent server id here>
+    server-token: <your blackfire agent server token here>
+  cli:
+    client-id: <your blackfire agent cli id here>
+    client-token: <your blackfire agent cli token here>

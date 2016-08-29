@@ -17,3 +17,6 @@
 
 - include: tools.yml
   when: webserver.tools
+
+- include: blackfire.yml
+  when: webserver.blackfire

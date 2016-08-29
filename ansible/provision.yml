@@ -41,9 +41,10 @@
       become: true
     - role: webserver
       become: true
-#    - role: jenkins
 
 - hosts: stage
+  vars_files:
+    - "../config.yml"
   vars:
     webserver_env: stage
     webserver:
@@ -63,7 +64,7 @@
 
 - hosts: live
   vars:
-    webserver_env: stage
+    webserver_env: live
     webserver:
       vhost_template: simple
       hostname: "{{ ansible_hostname }}.foo"
@@ -78,3 +79,18 @@
   roles:
     - role: webserver
       become: true
+
+# /etc/hosts hack
+- hosts: all
+  tasks:
+    - name: set /etc/hosts
+      become: true
+      lineinfile:
+        dest: /etc/hosts
+        line: "{{ item.value }} {{ item.key }}"
+      with_dict:
+        chess-db-dev.foo:     192.168.31.95
+        chess-db-jenkins.foo: 192.168.31.96
+        chess-db-stage.foo:   192.168.31.97
+        chess-db-live.foo:    192.168.31.98
+      when: item.key != ansible_fqdn

@@ -1,0 +1,49 @@
+- name: add blackfire apt key
+  apt_key:
+    url:  https://packagecloud.io/gpg.key
+    state: present
+
+- name: add blackfire dep
+  apt_repository:
+    repo: "deb http://packages.blackfire.io/debian any main"
+    state: present
+
+- name: install blackfire packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - blackfire-agent
+    - blackfire-php
+
+- name: blackfire cli tool config for jenkins
+  ini_file:
+    dest: /etc/blackfire/agent
+    section: blackfire
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_dict: "{{ blackfire.agent }}"
+  when: (blackfire is defined) and
+        (blackfire.agent is defined)
+  notify:
+    - restart blackfire-agent
+    - restart fpm
+    - restart nginx
+
+- name: blackfire cli tool config for jenkins
+  become_user: "{{ webserver.config_user }}"
+  ini_file:
+    dest: "{{ webserver.config_home }}/.blackfire.ini"
+    section: blackfire
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_dict: "{{ blackfire.cli }}"
+  when: (blackfire is defined) and
+        (blackfire.cli is defined)
+
+- name: ensure blackfire running and loaded
+  become: true
+  service:
+    name: blackfire-agent
+    state: started
+    enabled: true

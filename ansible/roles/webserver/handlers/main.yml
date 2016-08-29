@@ -1,10 +1,16 @@
 ---
-- name: restart apache
+- name: restart fpm
   service: 
-    name: apache2 
+    name: php7.0-fpm 
     state: restarted
 
 - name: restart nginx
   service: 
     name: nginx
     state: restarted
+
+- name: restart blackfire-agent
+  service:
+    name: blackfire-agent
+    state: restarted
+  when: webserver.blackfire

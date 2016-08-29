@@ -6,6 +6,15 @@
     project_base_path: "/var/www/chessdb"
     project_sub_path: "master"
   tasks:
+    # "dns" hack
+    - name: set /etc/hosts
+      become: true
+      lineinfile:
+        dest: /etc/hosts
+        line: "{{ ansible_ssh_host }} {{project_sub_path}}.{{ ansible_fqdn }}"
+      when: project_sub_path != ""
+      delegate_to: jenkins
+
     - set_fact:
         project_path: "{{ project_base_path }}/{{ project_sub_path }}"
 

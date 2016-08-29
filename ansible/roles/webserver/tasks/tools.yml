@@ -61,3 +61,4 @@
         (insight.user_uuid is defined) and
         (insight.api_token is defined) and 
         (insight.api_endpoint is defined)
+
