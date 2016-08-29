@@ -79,7 +79,7 @@ node {
             sh 'make BRANCH=$BRANCH_NAME deploy-branch'
         stage 'profile-stage'
             // could be used somewhere else
-            def bfp = sh returnStdout: true, script: 'blackfire curl http://$BRANCH_NAME.chess-deb-stage.foo'
+            def bfp = sh returnStdout: true, script: 'blackfire curl http://$BRANCH_NAME.chess-db-stage.foo'
             echo bfp
     }
 }
