@@ -19,22 +19,29 @@
         <nav class="pure-menu">
             <ul class="pure-menu-list">
                 {% if app.user %}
-                    <li class="pure-menu-item"><a class="pure-menu-link" href="{{ path('app_logout') }}">Logout</a></li>
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
                 {% else %}
-                    <li class="pure-menu-item"><a class="pure-menu-link"
-                                                  href="{{ path('app_security_login') }}">Login</a></li>
-                    <li class="pure-menu-item"><a class="pure-menu-link" href="{{ path('app_security_register') }}">Register</a>
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" href="{{ path('app_security_login') }}">Login</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" href="{{ path('app_security_register') }}">Register</a>
                     </li>
                 {% endif %}
             </ul>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a class="pure-menu-link" href="{{ path('app_game_list') }}">Gamelist</a>
+                <li class="pure-menu-item">
+                    <a class="pure-menu-link" href="{{ path('app_game_list') }}">Gamelist</a>
                 </li>
-                <li class="pure-menu-item"><a class="pure-menu-link" href="{{ path('app_player_list') }}">Players</a>
+                <li class="pure-menu-item">
+                    <a class="pure-menu-link" href="{{ path('app_player_list') }}">Players</a>
                 </li>
                 {% if is_granted('ROLE_PLAYER') %}
-                    <li class="pure-menu-item"><a class="pure-menu-link" href="{{ path('app_user_list') }}">Users</a>
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" href="{{ path('app_user_list') }}">Users</a>
                     </li>
                 {% endif %}
             </ul>

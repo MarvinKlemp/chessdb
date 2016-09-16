@@ -4,6 +4,7 @@
   with_items:
     - git
     - php-xdebug
+    - graphviz
 
 - name: check if composer is installed
   stat: 
@@ -34,8 +35,9 @@
     dest: "/usr/local/bin/{{ item.key }}"
     mode: 0755
   with_dict:
-    #deprecation-detector: https://github.com/sensiolabs-de/deprecation-detector/releases/download/0.1.0-alpha4/deprecation-detector.phar
-    #pdepend: http://static.pdepend.org/php/latest/pdepend.phar
+    behat: https://github.com/Behat/Behat/releases/download/v3.2.0rc2/behat.phar
+    deprecation-detector: https://github.com/sensiolabs-de/deprecation-detector/releases/download/0.1.0-alpha4/deprecation-detector.phar
+    pdepend: http://static.pdepend.org/php/latest/pdepend.phar
     deptrac: http://get.sensiolabs.de/deptrac.phar
     insight: http://get.insight.sensiolabs.com/insight.phar
     phpcbf: https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar

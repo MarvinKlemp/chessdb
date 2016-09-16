@@ -2,3 +2,4 @@
 ansible/galaxy_roles/
 chessdb.tar.gz
 ./config.yml
+symfony/.rules/

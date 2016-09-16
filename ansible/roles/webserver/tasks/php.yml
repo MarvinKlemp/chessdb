@@ -19,6 +19,9 @@
     - php-xml
     - php-zip
     - php-sqlite3
+    - php-bz2
+    - php-xhprof
+    - php-mbstring
   notify:
     - restart fpm
     - restart nginx
