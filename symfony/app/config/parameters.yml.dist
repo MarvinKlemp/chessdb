@@ -10,7 +10,10 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    dropbox_api_key: instert-dropbox-oauth-key
+    admin_mail_address:
+        entengelb@gmail.com: 'Lukas Sadzik'
+    sender_mail_address:
+        noreply@noreply.foo: chessdb
+    dropbox_api_key: dropbox_api_key
+    dropbox_api_secret: dropbox_api_secret
     dropbox_app_name: chessdb
-    admin_mail_address: {'entengelb@gmail.com': 'Lukas Sadzik'}
-    sender_mail_address: {'noreply@noreply.foo': 'chessdb'}

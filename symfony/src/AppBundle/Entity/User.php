@@ -82,6 +82,13 @@ class User implements UserInterface
     private $rawPassword;
 
     /**
+     * @var DropboxInfo
+     *
+     * @ORM\OneToOne(targetEntity="DropboxInfo", mappedBy="user")
+     */
+    private $dropboxInfo;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -219,16 +226,38 @@ class User implements UserInterface
         }
     }
 
+    /**
+     * @param Player $player
+     */
     public function addPlayer(Player $player)
     {
         $player->setUser($this);
         $this->players->add($player);
     }
 
+    /**
+     * @param Player $player
+     */
     public function removePlayer(Player $player)
     {
         $player->removeUser();
         $this->players->removeElement($player);
+    }
+
+    /**
+     * @return DropboxInfo
+     */
+    public function getDropboxInfo()
+    {
+        return $this->dropboxInfo;
+    }
+
+    /**
+     * @param DropboxInfo $dropboxInfo
+     */
+    public function setDropboxInfo($dropboxInfo)
+    {
+        $this->dropboxInfo = $dropboxInfo;
     }
 
     public function eraseCredentials()

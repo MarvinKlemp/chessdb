@@ -27,6 +27,11 @@ services:
         factory: ['@doctrine', getRepository]
         arguments: [AppBundle\Entity\Player]
 
+    app.repository.dropbox_info:
+        class: AppBundle\Entity\DropboxInfoRepository
+        factory: ['@doctrine', getRepository]
+        arguments: [AppBundle\Entity\DropboxInfo]
+
     app.repository.user:
         class: AppBundle\Entity\UserRepository
         factory: ['@doctrine', getRepository]
@@ -84,3 +89,30 @@ services:
         arguments: ['@app.repository.player']
         tags:
             - { name: form.type, alias: AppBundle\Form\UserToPlayerType }
+
+    dropbox.app.info:
+        class: Dropbox\AppInfo
+        arguments:
+            - '%dropbox_api_key%'
+            - '%dropbox_api_secret%'
+
+    app.dropbox.session_value_store:
+        class: AppBundle\Dropbox\SessionValueStore
+        arguments:
+            - '@session'
+
+    app.dropbox.auth_helper:
+        class: AppBundle\Dropbox\AuthHelper
+        arguments:
+            - '@router'
+            - '@dropbox.app.info'
+            - '@app.dropbox.session_value_store'
+            - '%dropbox_app_name%'
+            - 'app_import_authfinish'
+            - '@app.dropbox.token_storage'
+
+    app.dropbox.token_storage:
+        class: AppBundle\Dropbox\TokenStorage
+        arguments:
+            - '@app.repository.dropbox_info'
+            - '@security.token_storage'

@@ -11,6 +11,15 @@
     - nginx
     - php-fpm
 
+- name:
+  file:
+    path: /var/ssl
+    state: directory
+
+- name: create self-signed SSL cert
+  command: openssl req -new -nodes -x509 -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN=${ansible_fqdn}" -days 3650 -keyout /var/ssl/server.key -out /var/ssl/server.crt -extensions v3_ca creates=/var/ssl/server.crt
+  notify: restart nginx
+
 - name: install vhost template
   template: 
     src: "nginx_vhost_{{ webserver.vhost_template }}.j2"
